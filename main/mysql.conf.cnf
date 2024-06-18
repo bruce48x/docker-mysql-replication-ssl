@@ -11,6 +11,8 @@ read_only=0
 innodb_flush_log_at_trx_commit=2
 sync_binlog=1000
 
+binlog_do_db = mydb
+
 binlog-ignore-db=mysql
 binlog-ignore-db=information_schema
 binlog-ignore-db=performance_schema

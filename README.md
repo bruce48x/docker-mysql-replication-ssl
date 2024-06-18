@@ -17,7 +17,7 @@ and after starting setup replication. See commands inside ./build.sh.
 #### Make changes to master
 
 ```bash
-docker exec mysql_master sh -c "export MYSQL_PWD=111; mysql -u root mydb -e 'create table code(code int); insert into code values (100), (200)'"
+docker exec mysql_main sh -c "export MYSQL_PWD=111; mysql -u root mydb -e 'create table code(code int); insert into code values (100), (200)'"
 ```
 
 #### Read changes from slave
@@ -51,10 +51,10 @@ docker volume rm mysql-main-data
 docker volume rm mysql-replica-data
 ```
 
-#### Run command inside "mysql_master"
+#### Run command inside "mysql_main"
 
 ```bash
-docker exec mysql_master sh -c 'mysql -u root -p111 -e "SHOW MASTER STATUS \G"'
+docker exec mysql_main sh -c 'mysql -u root -p111 -e "SHOW MASTER STATUS \G"'
 ```
 
 #### Run command inside "mysql_replica"
@@ -63,10 +63,10 @@ docker exec mysql_master sh -c 'mysql -u root -p111 -e "SHOW MASTER STATUS \G"'
 docker exec mysql_replica sh -c 'mysql -u root -p111 -e "SHOW SLAVE STATUS \G"'
 ```
 
-#### Enter into "mysql_master"
+#### Enter into "mysql_main"
 
 ```bash
-docker exec -it mysql_master bash
+docker exec -it mysql_main bash
 ```
 
 #### Enter into "mysql_replica"

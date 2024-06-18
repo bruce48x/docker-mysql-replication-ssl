@@ -9,8 +9,8 @@ do
     sleep 4
 done
 
-priv_stmt='CREATE USER "mydb_replica_user"@"%" IDENTIFIED BY "mydb_replica_pwd" REQUIRE SSL;'
-priv_stmt+='GRANT REPLICATION SLAVE ON *.* TO "mydb_replica_user"@"%";'
+#priv_stmt='CREATE USER "mydb_replica_user"@"%" IDENTIFIED BY "mydb_replica_pwd" REQUIRE SSL;'
+priv_stmt='GRANT REPLICATION SLAVE ON *.* TO "mydb_replica_user"@"%";'
 priv_stmt+='FLUSH PRIVILEGES;'
 docker exec mysql_main sh -c "export MYSQL_PWD=111; mysql -u root -e '$priv_stmt'"
 
