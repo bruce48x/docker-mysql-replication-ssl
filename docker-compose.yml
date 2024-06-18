@@ -1,0 +1,32 @@
+volumes:
+  mysql-main-data:
+  mysql-replica-data:
+
+services:
+  mysql_main:
+    image: mysql:8.0.36
+    env_file:
+      - ./main/mysql.env
+    container_name: "mysql_main"
+    restart: "no"
+    ports:
+      - 4406:3306
+    volumes:
+      - ./ssl/:/etc/mysql/ssl/
+      - ./main/mysql.conf.cnf:/etc/mysql/conf.d/mysql.conf.cnf
+      - mysql-main-data:/var/lib/mysql
+
+  mysql_replica:
+    image: mysql:8.0.36
+    env_file:
+      - ./replica/mysql.env
+    container_name: "mysql_replica"
+    restart: "no"
+    ports:
+      - 5506:3306
+    depends_on:
+      - mysql_main
+    volumes:
+      - ./ssl/:/etc/mysql/ssl/
+      - ./replica/mysql.conf.cnf:/etc/mysql/conf.d/mysql.conf.cnf
+      - mysql-replica-data:/var/lib/mysql
